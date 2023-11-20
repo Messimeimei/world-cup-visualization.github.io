@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Awesome-pyecharts</title>
+                <script type="text/javascript" src="https://assets.pyecharts.org/assets/v5/echarts.min.js"></script>
+            <script type="text/javascript" src="https://assets.pyecharts.org/assets/v5/echarts-liquidfill.min.js"></script>
+
+</head>
+<body >
+    <div id="c3340e9cd14649e8a533cb8840de8209" class="chart-container" style="width:900px; height:500px; "></div>
+    <script>
+        var chart_c3340e9cd14649e8a533cb8840de8209 = echarts.init(
+            document.getElementById('c3340e9cd14649e8a533cb8840de8209'), 'white', {renderer: 'canvas'});
+        var option_c3340e9cd14649e8a533cb8840de8209 = {
+    "animation": true,
+    "animationThreshold": 2000,
+    "animationDuration": 1000,
+    "animationEasing": "cubicOut",
+    "animationDelay": 0,
+    "animationDurationUpdate": 300,
+    "animationEasingUpdate": "cubicOut",
+    "animationDelayUpdate": 0,
+    "aria": {
+        "enabled": false
+    },
+    "color": [
+        "#5470c6",
+        "#91cc75",
+        "#fac858",
+        "#ee6666",
+        "#73c0de",
+        "#3ba272",
+        "#fc8452",
+        "#9a60b4",
+        "#ea7ccc"
+    ],
+    "series": [
+        {
+            "type": "liquidFill",
+            "name": "\u4f20\u7403\u6210\u529f\u7387",
+            "data": [
+                0.7424242424242424
+            ],
+            "waveAnimation": true,
+            "animationDuration": 2000,
+            "animationDurationUpdate": 1000,
+            "color": [
+                "#294D99",
+                "#156ACF",
+                "#1598ED",
+                "#45BDFF"
+            ],
+            "shape": "circle",
+            "backgroundStyle": {},
+            "outline": {
+                "show": true,
+                "borderDistance": 8
+            },
+            "label": {
+                "show": true,
+                "position": "inside",
+                "margin": 8,
+                "fontSize": 10,
+                "formatter": function (param) {                            return (Math.floor(param.value * 10000) / 100) + '%';                        }
+            },
+            "center": [
+                "50%",
+                "40%"
+            ],
+            "xAxisIndex": 0,
+            "yAxisIndex": 0
+        },
+        {
+            "type": "liquidFill",
+            "name": "\u957f\u4f20\u6210\u529f\u7387",
+            "data": [
+                0.09668109668109669
+            ],
+            "waveAnimation": true,
+            "animationDuration": 2000,
+            "animationDurationUpdate": 1000,
+            "color": [
+                "#294D99",
+                "#156ACF",
+                "#1598ED",
+                "#45BDFF"
+            ],
+            "shape": "circle",
+            "backgroundStyle": {},
+            "outline": {
+                "show": true,
+                "borderDistance": 8
+            },
+            "label": {
+                "show": true,
+                "position": "inside",
+                "margin": 8,
+                "fontSize": 50,
+                "formatter": function (param) {                        return (Math.floor(param.value * 10000) / 100) + '%';                    }
+            },
+            "center": [
+                "20%",
+                "60%"
+            ],
+            "xAxisIndex": 1,
+            "yAxisIndex": 1
+        },
+        {
+            "type": "liquidFill",
+            "name": "\u77ed\u4f20\u6210\u529f\u7387",
+            "data": [
+                0.6457431457431457
+            ],
+            "waveAnimation": true,
+            "animationDuration": 2000,
+            "animationDurationUpdate": 1000,
+            "color": [
+                "#294D99",
+                "#156ACF",
+                "#1598ED",
+                "#45BDFF"
+            ],
+            "shape": "circle",
+            "backgroundStyle": {},
+            "outline": {
+                "show": true,
+                "borderDistance": 8
+            },
+            "label": {
+                "show": true,
+                "position": "inside",
+                "margin": 8,
+                "fontSize": 50,
+                "formatter": function (param) {                        return (Math.floor(param.value * 10000) / 100) + '%';                    }
+            },
+            "center": [
+                "80%",
+                "60%"
+            ],
+            "xAxisIndex": 2,
+            "yAxisIndex": 2
+        }
+    ],
+    "legend": [
+        {
+            "data": [],
+            "selected": {},
+            "show": false,
+            "padding": 5,
+            "itemGap": 10,
+            "itemWidth": 25,
+            "itemHeight": 14,
+            "backgroundColor": "transparent",
+            "borderColor": "#ccc",
+            "borderWidth": 1,
+            "borderRadius": 0,
+            "pageButtonItemGap": 5,
+            "pageButtonPosition": "end",
+            "pageFormatter": "{current}/{total}",
+            "pageIconColor": "#2f4554",
+            "pageIconInactiveColor": "#aaa",
+            "pageIconSize": 15,
+            "animationDurationUpdate": 800,
+            "selector": false,
+            "selectorPosition": "auto",
+            "selectorItemGap": 7,
+            "selectorButtonGap": 10
+        },
+        {
+            "data": [],
+            "selected": {}
+        },
+        {
+            "data": [],
+            "selected": {}
+        }
+    ],
+    "tooltip": {
+        "show": true,
+        "trigger": "item",
+        "triggerOn": "mousemove|click",
+        "axisPointer": {
+            "type": "line"
+        },
+        "showContent": true,
+        "alwaysShowContent": false,
+        "showDelay": 0,
+        "hideDelay": 100,
+        "enterable": false,
+        "confine": false,
+        "appendToBody": false,
+        "transitionDuration": 0.4,
+        "textStyle": {
+            "fontSize": 14
+        },
+        "borderWidth": 0,
+        "padding": 5,
+        "order": "seriesAsc"
+    },
+    "title": [
+        {
+            "show": true,
+            "text": "\u4f20\u7403\u6570\u636e\u5206\u6790",
+            "target": "blank",
+            "subtarget": "blank",
+            "left": "5%",
+            "top": "20",
+            "padding": 5,
+            "itemGap": 10,
+            "textAlign": "auto",
+            "textVerticalAlign": "auto",
+            "triggerEvent": false
+        },
+        {
+            "show": true,
+            "target": "blank",
+            "subtarget": "blank",
+            "padding": 5,
+            "itemGap": 10,
+            "textAlign": "auto",
+            "textVerticalAlign": "auto",
+            "triggerEvent": false
+        },
+        {
+            "show": true,
+            "target": "blank",
+            "subtarget": "blank",
+            "padding": 5,
+            "itemGap": 10,
+            "textAlign": "auto",
+            "textVerticalAlign": "auto",
+            "triggerEvent": false
+        }
+    ],
+    "grid": [
+        {
+            "show": false,
+            "zlevel": 0,
+            "z": 2,
+            "containLabel": false,
+            "backgroundColor": "transparent",
+            "borderColor": "#ccc",
+            "borderWidth": 1,
+            "shadowOffsetX": 0,
+            "shadowOffsetY": 0
+        },
+        {
+            "show": false,
+            "zlevel": 0,
+            "z": 2,
+            "containLabel": false,
+            "backgroundColor": "transparent",
+            "borderColor": "#ccc",
+            "borderWidth": 1,
+            "shadowOffsetX": 0,
+            "shadowOffsetY": 0
+        },
+        {
+            "show": false,
+            "zlevel": 0,
+            "z": 2,
+            "containLabel": false,
+            "backgroundColor": "transparent",
+            "borderColor": "#ccc",
+            "borderWidth": 1,
+            "shadowOffsetX": 0,
+            "shadowOffsetY": 0
+        }
+    ]
+};
+        chart_c3340e9cd14649e8a533cb8840de8209.setOption(option_c3340e9cd14649e8a533cb8840de8209);
+    </script>
+</body>
+</html>

@@ -12,15 +12,25 @@ import os
 
 data = pd.read_csv('../../data/2014_world_cup/球队进攻数据/进球数据.csv')
 country_name = []
+country_name_chinese = [
+    "德国",
+    "瑞士","哥斯达黎加","阿根廷","荷兰","法国","比利时","哥伦比亚",
+    "波斯尼亚",
+    "尼日利亚","阿尔及利亚","美国","加纳","墨西哥","厄瓜多尔","智利",
+    "希腊",
+    "克罗地亚","俄罗斯","韩国","西班牙","英格兰","科特迪瓦","日本",
+    "巴西",
+    "伊朗","意大利","乌拉圭","葡萄牙","澳大利亚","洪都拉斯","喀麦隆",
+]
 a = list(data.iloc[:, 0])
 for i in a :
     name = i[3:]
     country_name.append(name)
 
 # 生成文件夹
-for i in country_name:
-    if not os.path.exists(i):
-        os.mkdir(i)
+# for i in country_name:
+#     if not os.path.exists(i):
+#         os.mkdir(i)
 
 
 # 进攻-防守雷达图
@@ -160,7 +170,7 @@ def radar():
 
 
 # 国家地图
-def country_map(country_name):
+def country_map(directory, country_name):
     from pyecharts import options as opts
     from pyecharts.charts import Map3D
     from pyecharts.globals import ChartType
@@ -215,19 +225,19 @@ def country_map(country_name):
         )
 
 
-        .render(f"./{country_name}/{country_name}地图.html")
+        .render(f"./{directory}/{country_name}地图.html")
     )
 
 
 # 进球分析图
-def goal_analyse():
+def goal_analyse(directory, number, country):
     import pandas as pd
     from pyecharts import options as opts
     from pyecharts.charts import Pie
 
     # 读取数据
     data = pd.read_csv("../../data/2014_world_cup/球队进攻数据/进球数据.csv")
-    data = data.iloc[0, :]
+    data = data.iloc[number, :]
     sixyardbox = int(data[2])    # 大禁区内
     PenaltyArea = int(data[3])   # 小禁区内
     OutOfBox = int(data[4])      # 禁区外
@@ -240,10 +250,6 @@ def goal_analyse():
         )
         .set_colors(["#326bab", "#78d8ff", "#0766ff"])
         .set_global_opts(
-            title_opts=opts.TitleOpts(
-                title="进球分析", pos_top="50%", pos_left="10%",
-                title_textstyle_opts=opts.TextStyleOpts(color='white')
-            ),
             legend_opts=opts.LegendOpts(
                 pos_top="10%", border_width=0,
                 textstyle_opts=opts.TextStyleOpts(color='white')
@@ -257,18 +263,19 @@ def goal_analyse():
             ),
 
         )
-        .render("德国/德国进球分析.html")
+        .render(f"./{directory}/{country}进球分析-饼图.html")
     )
 
+
 # 传球成功率水滴图
-def pass_rate():
+def pass_rate(directory, number, country):
     import pandas as pd
     from pyecharts import options as opts
     from pyecharts.charts import Grid, Liquid
     from pyecharts.commons.utils import JsCode
 
     data = pd.read_csv('../../data/2014_world_cup/球队进攻数据/传球数据.csv')
-    data = data.iloc[0, :]
+    data = data.iloc[number, :]
     Total = int(data[1])
     AccLB = int(data[2])
     InAccLB = int(data[3])
@@ -282,7 +289,7 @@ def pass_rate():
     l1 = (
         Liquid()
         .add(
-            "传球成功率", [pass_rate], center=["50%", "20%"],
+            "传球成功率", [pass_rate], center=["50%", "40%"],
             label_opts=opts.LabelOpts(
                 font_size=10,
                 formatter=JsCode(
@@ -294,14 +301,15 @@ def pass_rate():
             ),
         )
         .set_global_opts(title_opts=opts.TitleOpts(
-            title="传球数据分析", pos_top="20", pos_left="5%")
+            title="传球数据分析", pos_top="20", pos_left="5%"),
+            legend_opts=opts.LegendOpts(is_show=False)
         )
     )
 
     l2 = Liquid().add(
         "长传成功率",
         [lb_rate],
-        center=["25%", "50%"],
+        center=["20%", "60%"],
         label_opts=opts.LabelOpts(
             font_size=50,
             formatter=JsCode(
@@ -316,7 +324,7 @@ def pass_rate():
     l3 = Liquid().add(
         "短传成功率",
         [sb_rate],
-        center=["80%", "50%"],
+        center=["80%", "60%"],
         label_opts=opts.LabelOpts(
             font_size=50,
             formatter=JsCode(
@@ -329,17 +337,17 @@ def pass_rate():
     )
 
     grid = Grid().add(l1, grid_opts=opts.GridOpts()).add(l2, grid_opts=opts.GridOpts()).add(l3, grid_opts=opts.GridOpts())
-    grid.render("德国/德国长传分析.html")
+    grid.render(f"./{directory}/{country}传球成功率分析-水滴图.html")
 
 
 # 传威胁球仪表盘图
-def key_pass():
+def key_pass(directory, number, country):
     import pandas as pd
     import pyecharts.options as opts
     from pyecharts.charts import Gauge
 
     data =  pd.read_csv('../../data/2014_world_cup/球队进攻数据/关键传球数据.csv')
-    data = data.iloc[0, :]
+    data = data.iloc[number, :]
     Total = int(data[1])
     Long = int(data[2])
     Short = int(data[3])
@@ -369,12 +377,12 @@ def key_pass():
                 )
             )
         )
-        .render("德国/德国威胁球.html")
+        .render(f"./{directory}/{country}威胁球分析-仪表盘图.html")
     )
 
 
 # 传球柱状图数据
-def pass_bar():
+def pass_bar(directory, number, country):
     import pandas as pd
     from pyecharts import options as opts
     from pyecharts.charts import Bar
@@ -382,7 +390,7 @@ def pass_bar():
     from pyecharts.globals import ThemeType
 
     data = pd.read_csv('../../data/2014_world_cup/球队进攻数据/传球数据.csv')
-    data = data.iloc[0, :]
+    data = data.iloc[number, :]
     Total = int(data[1])
     AccLB = int(data[2])
     InAccLB = int(data[3])
@@ -423,12 +431,12 @@ def pass_bar():
             legend_opts=opts.LegendOpts(is_show=False),
             yaxis_opts=opts.AxisOpts(splitline_opts=opts.SplitLineOpts(is_show=False))
         )
-        .render("德国/德国传球分析.html")
+        .render(f"./{directory}/{country}传球分析-柱状图.html")
     )
 
 
 # 过人柱状图数据
-def dribble():
+def dribble(directory, number, country):
     import pandas as pd
     from pyecharts import options as opts
     from pyecharts.charts import Bar
@@ -436,7 +444,7 @@ def dribble():
     from pyecharts.globals import ThemeType
 
     data = pd.read_csv('../../data/2014_world_cup/球队进攻数据/过人数据.csv')
-    data = data.iloc[0, :]
+    data = data.iloc[number, :]
     Total = int(data[3])
     success = int(data[2])
     unsuccess = int(data[1])
@@ -461,12 +469,12 @@ def dribble():
             legend_opts=opts.LegendOpts(is_show=False),
             yaxis_opts=opts.AxisOpts(splitline_opts=opts.SplitLineOpts(is_show=False))
         )
-        .render("德国/德国过人分析.html")
+        .render(f"./{directory}/{country}过人分析-柱状图.html")
     )
 
 
 # 射门数据
-def shoot():
+def shoot(directory, number, country):
     import pandas as pd
     import pyecharts.options as opts
     from pyecharts.charts import Pie
@@ -476,7 +484,7 @@ def shoot():
 
 
     data = pd.read_csv('../../data/2014_world_cup/球队进攻数据/射门数据.csv')
-    data = data.iloc[0, :]
+    data = data.iloc[number, :]
     Total = int(data[1])
     OutOfBox = int(data[2])
     SixYardBox = int(data[3])
@@ -538,18 +546,18 @@ def shoot():
     grid.add(c, opts.global_options.GridOpts(pos_left="60%"))
     grid.add(p, opts.global_options.GridOpts(pos_right="50%"))
 
-    grid.render("德国/德国射门分析.html")
+    grid.render(f"./{directory}/{country}射门分析-玫瑰图.html")
 
 
 # 过人成功率
-def dribble_rate():
+def dribble_rate(directory, number, country):
     import pandas as pd
     from pyecharts import options as opts
     from pyecharts.charts import Liquid
     from pyecharts.globals import SymbolType
 
     data = pd.read_csv('../../data/2014_world_cup/球队进攻数据/过人数据.csv')
-    data = data.iloc[0, :]
+    data = data.iloc[number, :]
     Total = int(data[3])
     success = int(data[2])
     unsuccess = int(data[1])
@@ -557,12 +565,12 @@ def dribble_rate():
     c = (
         Liquid()
         .add("过人成功率", [success / Total], is_outline_show=False, shape=SymbolType.DIAMOND)
-        .render("德国/德国过人成功率.html")
+        .render(f"./{directory}/{country}过人成功率分析-水滴图.html")
     )
 
 
 # 射门转化率
-def control_ball():
+def control_ball(directory, number, country):
     import pandas as pd
     from pyecharts import options as opts
     from pyecharts.charts import Liquid
@@ -570,7 +578,7 @@ def control_ball():
 
     shoot_data = pd.read_csv('../../data/2014_world_cup/球队进攻数据/射门数据.csv')
     goal_data = pd.read_csv('../../data/2014_world_cup/球队进攻数据/进球数据.csv')
-    shoot_data = shoot_data.iloc[0, :]
+    shoot_data = shoot_data.iloc[number, :]
     shoot_Total = int(shoot_data[1])
     goal_data = goal_data.iloc[0, :]
     goal_Total = int(goal_data[1])
@@ -579,20 +587,20 @@ def control_ball():
 
     c = (
         Liquid()
-        .add("过人成功率", [rate], is_outline_show=False, shape=SymbolType.DIAMOND)
-        .render("德国/德国射门转化率.html")
+        .add("射门转化率", [rate], is_outline_show=False, shape=SymbolType.DIAMOND)
+        .render(f"./{directory}/{country}射门转化率分析-水滴图.html")
     )
 
 
 # 高空对抗柱状图
-def high_battle():
+def high_battle(directory, number, country):
     import pandas as pd
     from pyecharts import options as opts
     from pyecharts.charts import Bar
     from pyecharts.globals import ThemeType
 
     data = pd.read_csv('../../data/2014_world_cup/球队防守数据/高空对抗数据.csv')
-    data = data.iloc[0, :]
+    data = data.iloc[number, :]
     Total = int(data[1])
     won = int(data[2])
     lost = int(data[3])
@@ -616,18 +624,18 @@ def high_battle():
             legend_opts=opts.LegendOpts(is_show=False),
             yaxis_opts=opts.AxisOpts(splitline_opts=opts.SplitLineOpts(is_show=False))
         )
-        .render("德国/德国高空对抗分析.html")
+        .render(f"./{directory}/{country}高空对抗分析-柱状图.html")
     )
 
 
 # 高空对抗成功率
-def high_battle_rate():
+def high_battle_rate(directory, number, country):
     import pandas as pd
     from pyecharts.charts import Liquid
     from pyecharts.globals import SymbolType
 
     data = pd.read_csv('../../data/2014_world_cup/球队防守数据/高空对抗数据.csv')
-    data = data.iloc[0, :]
+    data = data.iloc[number, :]
     Total = int(data[1])
     won = int(data[2])
     lost = int(data[3])
@@ -635,19 +643,19 @@ def high_battle_rate():
     c = (
         Liquid()
         .add("过人成功率", [won / Total], is_outline_show=False, shape=SymbolType.DIAMOND)
-        .render("德国/德国高空对抗成功率.html")
+        .render(f"./{directory}/{country}高空对抗成功率分析-水滴图.html")
     )
 
 
 # 铲球柱状图
-def tackle():
+def tackle(directory, number, country):
     import pandas as pd
     from pyecharts import options as opts
     from pyecharts.charts import Bar
     from pyecharts.globals import ThemeType
 
     data = pd.read_csv('../../data/2014_world_cup/球队防守数据/铲球数据.csv')
-    data = data.iloc[0, :]
+    data = data.iloc[number, :]
     Total = int(data[3])
     won = int(data[1])
     lost = int(data[2])
@@ -671,18 +679,18 @@ def tackle():
             legend_opts=opts.LegendOpts(is_show=False),
             yaxis_opts=opts.AxisOpts(splitline_opts=opts.SplitLineOpts(is_show=False))
         )
-        .render("德国/德国铲球分析.html")
+        .render(f"./{directory}/{country}铲球分析-柱状图.html")
     )
 
 
 # 铲球成功率
-def tackle_rate():
+def tackle_rate(directory, number, country):
     import pandas as pd
     from pyecharts.charts import Liquid
     from pyecharts.globals import SymbolType
 
     data = pd.read_csv('../../data/2014_world_cup/球队防守数据/铲球数据.csv')
-    data = data.iloc[0, :]
+    data = data.iloc[number, :]
     Total = int(data[3])
     won = int(data[1])
     lost = int(data[2])
@@ -690,12 +698,12 @@ def tackle_rate():
     c = (
         Liquid()
         .add("铲球成功率", [won / Total], is_outline_show=False, shape=SymbolType.DIAMOND)
-        .render("德国/德国铲球成功率.html")
+        .render(f"./{directory}/{country}铲球成功率分析-水滴图.html")
     )
 
 
 # 扑救数据
-def save():
+def save(directory, number, country):
     import pandas as pd
     import pyecharts.options as opts
     from pyecharts.charts import Pie
@@ -703,7 +711,7 @@ def save():
     from pyecharts.charts import Grid
 
     data = pd.read_csv('../../data/2014_world_cup/球队防守数据/扑救数据.csv')
-    data = data.iloc[0, :]
+    data = data.iloc[number, :]
     Total = int(data[1])
     OutOfBox = int(data[4])
     SixYardBox = int(data[2])
@@ -765,17 +773,17 @@ def save():
     grid.add(c, opts.global_options.GridOpts(pos_left="60%"))
     grid.add(p, opts.global_options.GridOpts(pos_right="50%"))
 
-    grid.render("德国/德国扑救分析.html")
+    grid.render(f"./{directory}/{country}扑救分析-饼图.html")
 
 
 # 拦截数据
-def interception():
+def interception(directory, number, country):
     import pandas as pd
     import pyecharts.options as opts
     from pyecharts.charts import Gauge
 
     data = pd.read_csv('../../data/2014_world_cup/球队防守数据/拦截数据.csv')
-    data = data.iloc[0, :]
+    data = data.iloc[number, :]
     Total = int(data[1])
 
     (
@@ -803,19 +811,19 @@ def interception():
                 )
             )
         )
-        .render("德国/德国拦截球数.html")
+        .render(f"./{directory}/{country}拦截分析-仪表盘图.html")
     )
 
 
 # 封锁数据
-def block():
+def block(directory, number, country):
     import pandas as pd
     from pyecharts import options as opts
     from pyecharts.charts import Pie
 
     # 读取数据
     data = pd.read_csv("../../data/2014_world_cup/球队防守数据/封锁数据.csv")
-    data = data.iloc[0, :]
+    data = data.iloc[number, :]
     ShotsBlocked = int(data[1])    # 大禁区内
     CrossesBlocked = int(data[2])   # 小禁区内
     PassesBlocked = int(data[3])      # 禁区外
@@ -842,19 +850,19 @@ def block():
             ),
 
         )
-        .render("德国/德国封堵分析.html")
+        .render(f"./{directory}/{country}封堵分析-饼图.html")
     )
 
 
 # 红黄牌数
-def red_yellow_card():
+def red_yellow_card(directory, number, country):
     import pandas as pd
     from pyecharts import options as opts
     from pyecharts.charts import Bar
     from pyecharts.globals import ThemeType
 
     data = pd.read_csv('../../data/2014_world_cup/球队防守数据/红黄牌数.csv')
-    data = data.iloc[0, :]
+    data = data.iloc[number, :]
     yellow = int(data[1])
     red = int(data[2])
     total = yellow + red
@@ -879,7 +887,7 @@ def red_yellow_card():
             legend_opts=opts.LegendOpts(is_show=False),
             yaxis_opts=opts.AxisOpts(splitline_opts=opts.SplitLineOpts(is_show=False))
         )
-        .render("德国/德国红黄牌数分析.html")
+        .render(f"./{directory}/{country}红黄牌数分析-柱状图.html")
     )
 
 
@@ -1056,3 +1064,23 @@ def whole_dribble():
     )
     c.render("各国家队过人数比较.html")
 
+
+if __name__ == '__main__':
+    for i in range(len(country_name)):
+        country_map(country_name[i], country_name_chinese[i] )  # 统一生成地图
+        goal_analyse(country_name[i], i, country_name_chinese[i])   # 统一生成进球分析图
+        pass_rate(country_name[i], i, country_name_chinese[i])  # 统一生成传球成功率图
+        key_pass(country_name[i], i, country_name_chinese[i])  # 统一生成威胁球分析图
+        pass_bar(country_name[i], i, country_name_chinese[i])  # 统一生成传球分析图
+        dribble(country_name[i], i, country_name_chinese[i])  # 统一生成过人分析图
+        shoot(country_name[i], i, country_name_chinese[i])  # 统一生成射门分析图
+        dribble_rate(country_name[i], i, country_name_chinese[i])   # 统一生成过人成功率分析图
+        control_ball(country_name[i], i, country_name_chinese[i])   # 统一生成射门转化率分析图
+        high_battle(country_name[i], i, country_name_chinese[i])  # 统一生成高空对抗分析图
+        high_battle_rate(country_name[i], i, country_name_chinese[i])  # 统一生成高空对抗成功率分析图
+        tackle(country_name[i], i, country_name_chinese[i])  # 统一生成铲球分析图
+        tackle_rate(country_name[i], i, country_name_chinese[i])  # 统一生成铲球成功率分析图
+        save(country_name[i], i, country_name_chinese[i])  # 统一生成扑救分析图
+        interception(country_name[i], i, country_name_chinese[i])  # 统一生成拦截分析图
+        block(country_name[i], i, country_name_chinese[i])  # 统一生成封堵分析图
+        red_yellow_card(country_name[i], i, country_name_chinese[i])  # 统一生成红黄牌数分析图
