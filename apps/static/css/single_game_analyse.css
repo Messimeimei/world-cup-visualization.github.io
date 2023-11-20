@@ -1,0 +1,155 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    -moz-background-size: cover;
+    -ms-background-size: cover;
+    background: -webkit-linear-gradient(left, #005d24, #bb7102);
+}
+
+a {
+    text-decoration: none;
+}
+
+.head {
+    height: 95px;
+    width: 100%;
+    margin-left: 0;
+    background: -webkit-linear-gradient(left, #005d24, #bb7102);
+    position: fixed; /*固定在顶部*/
+    top: 0; /*离顶部的距离为0*/
+    margin-bottom: 5px;
+    border-radius: 2px;
+    border-color: #122b40;
+}
+
+
+.head img {
+    position: absolute;
+    width: 75px;
+    margin-left: 35%;
+    top: -3px;
+}
+
+.wc-2014 {
+    position: fixed;
+    top: 120px;
+    margin-left: 5%;
+    height: 100%;
+    width: 400px;
+    background: url("../images/800px-2014_FIFA_World_Cup_Logo.svg.png") no-repeat center top;
+    background-size: 85% 85%;
+
+}
+.wc-2014 a {
+    position: relative;
+    display: block;
+    text-decoration: none;
+    width: 400px;
+    height: 100%;
+    top: -25px;
+}
+
+.wc-2014:hover {
+    position: fixed;
+    top: 95px;
+    margin-left: 5%;
+    height: 100%;
+    width: 400px;
+    background: url("../images/巴西世界杯-选中时.png") no-repeat center top;
+    background-color: rgba(0, 93, 36, 0.78);
+}
+
+
+.wc-2018 {
+    position: fixed;
+    top: 120px;
+    margin-left: 650px;
+    height: 100%;
+    width: 400px;
+    background: url("../images/800px-2018_FIFA_world_cup.svg.png") no-repeat center top;
+    background-size: 100% 85%;
+
+}
+
+.wc-2018 a {
+    position: relative;
+    display: block;
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.85);
+    width: 400px;
+    height: 100%;
+    top: -25px;
+}
+
+.wc-2018:hover {
+    position: fixed;
+    top: 95px;
+    margin-left: 650px;
+    margin-bottom: 20px;
+    height: 100%;
+    width: 400px;
+    background: url("../images/俄罗斯世界杯-选中时.png") no-repeat center top;
+    background-color: #c80000;
+    background-size: 120% 120%;
+}
+
+.wc-2022 {
+    position: fixed;
+    top: 125px;
+    margin-left: 1200px;
+    height: 100%;
+    width: 400px;
+    background: url("../images/2022_FIFA_World_Cup.svg.png") no-repeat center top;
+    background-size: 100% 85%;
+
+}
+
+.wc-2022 a {
+    position: relative;
+    display: block;
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.85);
+    width: 400px;
+    height: 100%;
+    top: -25px;
+}
+
+.wc-2022:hover {
+    position: fixed;
+    top: 95px;
+    margin-left: 1200px;
+    height: 100%;
+    width: 400px;
+    background: url("../images/卡塔尔世界杯-选中时.png") no-repeat center top;
+    background-color: #a71434;
+}
+
+/*定义滚动条高宽及背景
+ 高宽分别对应横竖滚动条的尺寸*/
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+        background-color: rgba(0,0,0,.2);
+    }
+
+    /*定义滚动条轨道
+ 内阴影+圆角*/
+    ::-webkit-scrollbar-track
+    {
+        -webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.3);
+        border-radius:10px;
+        background-color:#F5F5F5;
+    }
+    /*定义滑块
+     内阴影+圆角*/
+    ::-webkit-scrollbar-thumb
+    {
+        border-radius:10px;
+        -webkit-box-shadow:inset 0 0 6px rgba(0,0,0,.3);
+        background-color: #919191;
+    }
+
